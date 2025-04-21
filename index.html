@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratorio de Procesos Evolutivos y Diversidad de Aves Neotropicales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      position:relative;
+      padding-bottom: 8em;
+      min-height:100vh;
+
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    footer{
+      position:absolute;
+      padding: 1em 0;
+      text-align: center;
+      bottom:0;
+      width:100%;
+    }
+
+    nav {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #555;
+    }
+
+    /* Pertenecen al script del cel*/
+    .tab-content {
+      display: none;
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      animation: fadeIn 0.5s;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Estilos Información */
+    .titulo-principal {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 2.2em;
+      margin: 20px auto;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #3498db;
+      display: block;
+      max-width: 800px;
+      width: auto;
+   }
+    .logo-lab {
+      max-width: 350px;
+      margin: 20px auto;
+      display: block;
+   }
+    
+    .info-contacto {
+    background-color: #f5f5f5;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+   }
+    .redes-sociales {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 30px 0;
+  }
+
+    .red-social {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+  }
+
+    .red-social i {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
+
+    .facebook { background-color: #3b5998; }
+    .instagram { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); }
+    .researchgate { background-color: #00CCBB; }
+
+    .red-social:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+    @media (max-width: 768px) {
+     .redes-sociales {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .titulo-principal {
+      font-size: 1.8em;
+      padding: 0 15px;
+    }
+    
+    .red-social {
+      width: 100%;
+      max-width: 250px;
+      justify-content: center;
+    }
+  }
+
+    /* Estilos Integrantes */
+
+    .responsable-imagen img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    } 
+    .responsable-info h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .cargo {
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .titulo, .nivel {
+      color: #7f8c8d;
+      font-size: 0.95em;
+      margin-bottom: 15px;
+    }
+
+    .bio p {
+      margin-bottom: 15px;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+/* Estilos del recuadro que contiene el perfil del asesor */
+    .responsable-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .responsable-imagen img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .responsable-info h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .responsable-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+/* Este codigo altera la funcion de los marcos de integrantes*/
+
+    .integrantes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+      padding: 0 20px;
+}
+
+    .integrante {
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e1e4e8;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .integrante:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+    .integrante-imagen img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 3px solid #dfe6e9;
+}
+
+    .integrante h3 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+      color: #2c3e50;
+      font-weight: 600;
+}
+
+    .integrante p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.5;
+}
+
+
+    .posicion {
+      color: #3498db;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .perfil-links {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .perfil-links a {
+      padding: 8px 12px;
+      background-color: #3498db;
+      color: white !important;
+      border-radius: 20px;
+      font-size: 0.85em;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .perfil-links a:hover {
+      background-color: #2980b9;
+      transform: translateY(-1px);
+    }
+    @media (max-width: 768px) {
+      .responsable-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .responsable-imagen {
+        max-width: 200px;
+        margin: 0 auto;
+      }
+      
+      .integrantes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Estilos Proyectos */
+    .proyecto-dropdown {
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .dropdown-btn {
+      background-color: #f1f1f1;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 1em;
+      outline: none;
+      transition: background-color 0.3s;
+    }
+    .dropdown-btn:hover {
+      background-color: #ddd;
+    }
+    .dropdown-content {
+      display: none;
+      padding: 15px;
+      background-color: #fafafa;
+    }
+    .proyecto-imagen {
+      width: 100%;
+      height: auto;
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+
+    /* Estilos Artículos */
+    .articulos-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .articulos-list li {
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #007BFF;
+      transition: all 0.3s ease;
+    }
+    .articulos-list li:hover {
+      background-color: #e9ecef;
+      transform: translateX(5px);
+    }
+    .articulos-list a {
+      color: #28a745;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    .articulos-list a:hover {
+      text-decoration: underline;
+    }
+    .articulos-list strong {
+      color: #333;
+      display: inline-block;
+      min-width: 60px;
+    }
+/* Menú responsive para móviles */
+   .menu-toggle {
+    display: none;
+    font-size: 1.5em;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+
+  nav a {
+    display: none;
+    width: 100%;
+    padding: 10px 15px;
+    border-top: 1px solid #444;
+    background-color: #333;
+  }
+
+  nav.open a {
+    display: block;
+  }
+}
+  .logo-footer {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.logo-footer img {
+  max-width: 200px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo-footer img:hover {
+  transform: scale(1.05);
+}
+
+#contenedor1 {
+  height: 2000px;
+  background-color: #fafafa;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav id="main-nav">
+      <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
+      <a href="#info" class="tab-link active">Información </a>
+      <a href="#integrantes" class="tab-link">Integrantes</a>
+      <a href="#proyectos" class="tab-link">Proyectos</a>
+      <a href="#articulos" class="tab-link">Artículos</a>
+    </nav>
+  </header>
+
+  
+<!-- Sección Información -->
+<div id="info" class="tab-content active">
+  <h1 class="titulo-principal">Laboratorio de Procesos Evolutivos y Diversidad de Aves Neotropicales</h1>
+    
+  <p>La investigación en el laboratorio se centra en los procesos evolutivos que impulsan la biodiversidad aviar, la evolución de los patrones de distribución, la estructura filogenética de las comunidades aviares, la biogeografía y la sistemática, principalmente en los Neotrópicos.</p>
+
+  <!-- Redes sociales -->
+  <div class="redes-sociales">
+    <a href="https://www.facebook.com/EvoNeoBirds/" target="_blank" class="red-social facebook">
+      <i class="fab fa-facebook"></i>
+      Síguenos en Facebook
+    </a>
+    
+    <a href="https://www.instagram.com/prodiv.aves/" target="_blank" class="red-social instagram">
+      <i class="fab fa-instagram"></i>
+      Síguenos en Instagram
+    </a>
+    
+    <a href="https://www.researchgate.net/lab/Evolutionary-processes-and-diversity-of-Neotropical-birds-Luis-A-Sanchez-Gonzalez" target="_blank" class="red-social researchgate">
+      <i class="fab fa-researchgate"></i>
+      Visita ResearchGate
+    </a>
+  </div>
+
+  <img src="logo-lab.png" alt="logo-lab" class="logo-lab">
+  
+  <div class="info-contacto">
+    <h3>Contacto</h3>
+    <p>Museo de Zoología "Alfonso L. Herrera", Departamento de Biología Evolutiva, Facultad de Ciencias, UNAM</p>
+    <p>Apartado Postal 70-399, México D.F.</p>
+    <p>C.P. 04510 México</p>
+    <p>Teléfono: (+5255)56 22 54 35</p>
+  </div>
+    <!-- Imagen con enlace al MZFC -->
+<div class="logo-footer">
+  <a href="https://mzfcaves.fciencias.unam.mx/" target="_blank">
+    <img src="logo_mzfc.png" alt="Sitio del MZFC Aves">
+
+  </a>
+</div>
+</div>
+
+  <!-- Sección Integrantes -->
+  <div id="integrantes" class="tab-content">
+    <h1 style="color: black; text-align: left;"> 
+      Responsable
+    </h1>
+    
+    <!-- Responsable -->
+    <div class="responsable-container">
+      <div class="responsable-imagen">
+        <img src="how_base.jpg" alt="Dr. Luis Antonio Sánchez González">
+      </div>
+      <div class="responsable-info">
+        <h3>Dr. Luis Antonio Sánchez González</h3>
+        <p class="cargo">Responsable del Laboratorio</p>
+        <p class="titulo">Profesor Titular B Tiempo Completo<br>Facultad de Ciencias, UNAM</p>
+        <p class="nivel">Investigador Nacional SNII Nivel 2</p>
+        
+        <div class="bio">
+          <p>Realicé mis estudios de Licenciatura y Doctorado en la UNAM, así como un posdoctorado en el Biodiversity Institute and Museum of Natural History de la University of Kansas (USA). Mis líneas de investigación se centran en la Biología Evolutiva (Biogeografía, Sistemática y Ecología Evolutiva), usando a las aves como modelo.</p>
+          <p>He realizado trabajo de campo en todo México, Estados Unidos y Perú; así como en Asia (Filipinas) y África (Guinea Ecuatorial y Liberia). Imparto clases a nivel licenciatura y posgrado en la UNAM y participo activamente en la dirección de tesis de licenciatura y posgrado de alumnos de la UNAM, la Universidad Autónoma de Guerrero y la Universidad Autónoma Metropolitana.</p>
+          <p>e-mail: lasg@ciencias.unam.mx</p>
+        </div>
+        
+        <div class="perfil-links">
+          <a href="https://www.researchgate.net/profile/Luis-Sanchez-Gonzalez-4" target="_blank">ResearchGate</a>
+          <a href="https://orcid.org/0000-0002-8932-1657" target="_blank">ORCID</a>
+          <a href="https://scholar.google.com/schhp?hl=es" target="_blank">Google Scholar</a>
+        </div>
+      </div>
+    </div>
+    
+    <h1 style="color: black; text-align: left;"> 
+      Estudiantes de Doctorado
+    </h1>
+
+    
+    <!-- Estudiantes -->
+    <div class="integrantes-grid">
+      <!-- Estudiante 1 -->
+      <div class="integrante destacado">
+        <div class="integrante-imagen">
+          <img src="orlando_base.jpg" alt="M. en C. Orlando Jael Espinosa-Chávez">
+        </div>
+        <div class="integrante-info">
+          <h3>M. en C. Orlando Jael Espinosa-Chávez</h3>
+          <p class="posicion">Estudiante de doctorado<br>Posgrado en Ciencias Biológicas, UNAM</p>
+          
+          <div class="bio">
+            <p>Soy biólogo egresado de la FES Zaragoza y Maestro en Ciencias por la Facultad de Ciencias de la UNAM, donde actualmente curso el Doctorado en Ciencias Biológicas. Mis intereses se centran en la sistemática, filogeografía y ecología evolutiva.</p>
+            <p>Específicamente en comprender los procesos evolutivos que han dado forma a la diversidad de aves en México, tanto en regiones de tierras bajas como de montaña; esto mediante el uso de datos moleculares y modelado de nicho ecológico. Además, he realizado trabajo en campo en gran parte de México, me apasiona la fotografía y la divulgación científica.</p>
+            <p>e-mail: orlando.espinosa@ciencias.unam.mx</p>
+          </div>
+          
+          <div class="perfil-links">
+            <a href="https://www.researchgate.net/profile/Orlando-J-Espinosa-Chavez?ev=hdr_xprf" target="_blank">ResearchGate</a>
+            <a href="https://orcid.org/0009-0008-3233-9048" target="_blank">ORCID</a>
+            <a href="https://scholar.google.com/citations?hl=es&user=X8UofoEAAAAJ" target="_blank">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estudiante 2 -->
+      <div class="integrante destacado">
+        <div class="integrante-imagen">
+          <img src="bill_base.jpg" alt="Estudiante de doctorado 2">
+        </div>
+        <div class="integrante-info">
+          <h3>M. en C. Bill Chan</h3>
+          <p class="posicion">Estudiante de doctorado<br>Posgrado en Ciencias Biológicas, UNAM</p>
+          
+          <div class="bio">
+            <p>Soy biólogo y maestro en ciencias de parte de la Facultad de Ciencias de la UNAM. Mi línea de investigación se centra en incorporar datos fósiles, ambientales y genéticos para investigar las patrones temporales y espaciales de la distribución de aves neotropicales.</p>
+            <p>Actualmente me encuentro haciendo mi doctorado investigando los efectos de las barreras históricas, ecológicas y físicas de los desiertos del oeste de Norteamérica sobre las aves.</p>
+            <p>e-mail: billchan@ciencias.unam.mx</p>
+          </div>
+          
+          <div class="perfil-links">
+            <a href="https://www.researchgate.net/profile/Pak-Chan-18?ev=prf_overview" target="_blank">ResearchGate</a>
+            <a href="#" target="_blank">ORCID</a>
+            <a href="#" target="_blank">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estudiante 3 (Espacio reservado) -->
+      <div class="integrante destacado">
+        <div class="integrante-imagen">
+          <img src="rein_base.jpg" alt="Estudiante de doctorado 3">
+        </div>
+        <div class="integrante-info">
+          <h3>M. en C. Reinhard E. Matadamas</h3>
+          <p class="posicion">Estudiante de doctorado<br>Posgrado en Ciencias Biológicas, UNAM</p>
+          
+          <div class="bio">
+            <p>Biólogo egresado de la UNAM donde actualmente también realizo mis estudios de doctorado, explorando los procesos evolutivos que han originado la diversidad actual de aves en las regiones montañosas de México. </p>
+            <p>Además, me interesan otras áreas como la biogeografía, ecología evolutiva, macroecología y macroevolución. He realizado trabajo de campo en diversas regiones de México, Estados Unidos y Liberia. En mi tiempo libre me gusta observar aves y el senderismo.</p>
+            <p>e-mail: reinhardmata@ciencias.unam.mx</p>
+          </div>
+          
+          <div class="perfil-links">
+            <a href="https://www.researchgate.net/profile/Reinhard-Matadamas?ev=hdr_xprf" target="_blank">ResearchGate</a>
+            <a href="#" target="_blank">ORCID</a>
+            <a href="#" target="_blank">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  </div>
+  <!-- Sección Proyectos -->
+  <div id="proyectos" class="tab-content">
+    <h2>Proyectos Vigentes</h2>
+    
+    <div class="proyecto-dropdown">
+      <button class="dropdown-btn">Proyecto 1: Título</button>
+      <div class="dropdown-content">
+        <img src="Portada_3.png" alt="Proyecto 1" class="proyecto-imagen">
+        <p>Descripción</p>
+      </div>
+    </div>
+
+    <div class="proyecto-dropdown">
+      <button class="dropdown-btn">Proyecto 2: Título</button>
+      <div class="dropdown-content">
+        <img src="Portada_3.png" alt="Proyecto 2" class="proyecto-imagen">
+        <p>Descripción</p>
+      </div>
+    </div>
+
+    <div class="proyecto-dropdown">
+      <button class="dropdown-btn">Proyecto 3: Título</button>
+      <div class="dropdown-content">
+        <img src="Portada_3.png" alt="Proyecto 3" class="proyecto-imagen">
+        <p>Descripción</p>
+      </div>
+    </div>
+
+    <div class="proyecto-dropdown">
+      <button class="dropdown-btn">Proyecto 4: Título</button>
+      <div class="dropdown-content">
+        <img src="Portada_3.png" alt="Proyecto 4" class="proyecto-imagen">
+        <p>Descripción</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección Artículos -->
+  <div id="articulos" class="tab-content">
+    <h2>Artículos Publicados</h2>
+    <ul class="articulos-list">
+      <li>
+        <strong>2024:</strong> The role of ecological niche conservatism in the evolution of bird distributional patterns in Mesoamerican seasonally dry forests. 
+        <a href="https://onlinelibrary-wiley-com.pbidi.unam.mx:2443/share/WRJCEWVHIGRIDWMB95QP?target=10.1111/jbi.14820" target="_blank">Ver artículo</a>
+      </li>
+      <li>
+        <strong>2024:</strong> Highly divergent sympatric lineages in Leptotila verreauxi (Aves: Columbidae) suggest a secondary contact area in the Isthmus of Tehuantepec, Mexico. 
+        <a href="https://www.sciencedirect.com/science/article/pii/S2053716624000033" target="_blank">Ver artículo</a>
+      </li>
+      <li>
+        <strong>2021:</strong> Título 
+        <a href="#" target="_blank">Ver artículo</a>
+      </li>
+      <li>
+        <strong>2020:</strong> Título 
+        <a href="#" target="_blank">Ver artículo</a>
+      </li>
+      <li>
+        <strong>2019:</strong> Título 
+        <a href="#" target="_blank">Ver artículo</a>
+      </li>
+    </ul>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Tabs
+    const tabs = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = tab.getAttribute('href').substring(1);
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        tabContents.forEach(content => {
+          content.classList.remove('active');
+          if(content.id === targetId) {
+            content.classList.add('active');
+          }
+        });
+
+        const nav = document.getElementById("main-nav");
+        if (window.innerWidth <= 768) {
+          nav.classList.remove("open");
+        }
+      });
+    });
+
+    // Dropdowns: cerrar otros al abrir uno nuevo
+    const botones = document.getElementsByClassName("dropdown-btn");
+    Array.from(botones).forEach(function(boton) {
+      boton.addEventListener("click", function() {
+        const todos = document.getElementsByClassName("dropdown-content");
+        Array.from(todos).forEach((contenido) => {
+          if (contenido !== this.nextElementSibling) {
+            contenido.style.display = "none";
+          }
+        });
+        const contenidoActual = this.nextElementSibling;
+        contenidoActual.style.display = (contenidoActual.style.display === "block") ? "none" : "block";
+      });
+    });
+
+    // Menú hamburguesa
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("main-nav");
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        nav.classList.toggle("open");
+      });
+    }
+  });
+</script>
+  <footer style="text-align: center; padding: 1em; background-color: #f4f4f4; font-size: 0.9em; color: #555;">
+  <p>&copy; 2025 Laboratorio de Procesos Evolutivos y Diversidad de Aves Neotropicales</p>
+  <p>Contacto: <a href="mailto:lasg@ciencias.unam.mx">lasg@ciencias.unam.mx</a></p>
+  <p>Contenido bajo licencia 
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </p>
+</footer>
+</body>
+</html>
